@@ -80,7 +80,7 @@ class dbIO:
         with self.get_session() as s:
             #s.query(table).filter(table.fund_id == "150234").update_all(r)
             conditions = [getattr(table, k) == v for k, v in primary_kvs.items()]
-            s.query(table).filter(and_(*conditions)).update_all(record)
+            s.query(table).filter(and_(*conditions)).update(record)
 
     def delete(self, table, primary_kvs : dict) -> None:
         """delete record by looking at primary key

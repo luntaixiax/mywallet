@@ -67,9 +67,13 @@ if __name__ == '__main__':
     db = dbIO(lm)
 
     #db.insert(User, dict(user_id = 'u001', username = 'luntaixia', password = 'allan19950601', dob = '1995-06-01', email = 'ailunqian124@gmail.com', phone = '226-978-7365'))
+    #db.insert(User, dict(user_id='u002', username='evelyn', password='123456', dob='1997-06-12',
+    #                     email='evelyn@gmail.com', phone='123-456-7890'))
     #db.insert(Acct, dict(acct_id = 'acct002', user_id = 'u001', acct_type = AcctType.ASSET, cur = Currency('CAD')))
+    from sqlalchemy import func, distinct
 
     with db.get_session() as s:
-        u = s.query(Acct).filter(Acct.user_id == 'u001').one()
+        q = s.query(func.count(User.user_id)).filter(User.user_id == 'u003')
         #assert u.password == 'xxxx'
-        print(u.cur.name)  # Canadian Dollar
+
+    print(q.scalar())  # Canadian Dollar
